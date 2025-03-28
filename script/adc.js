@@ -18,9 +18,9 @@ module.exports.run = async function({
   const request = require('request');
   const cheerio = require('cheerio');
   const {
-    61550188503841,
-    61550188503841,
-    61550188503841,
+    61554405703021,
+    61554405703021,
+    61554405703021,
     messageReply,
     type
   } = event;
@@ -28,7 +28,7 @@ module.exports.run = async function({
   if (type == "message_reply") {
     var text = messageReply.body;
   }
-  if (!text && !name) return api.sendMessage('Please reply to the link you want to apply the code to or write the file name to upload the code to pastebin!', 61550188503841, 61550188503841);
+  if (!text && !name) return api.sendMessage('Please reply to the link you want to apply the code to or write the file name to upload the code to pastebin!', 61554405703021, 61554405703021);
   if (!text && name) {
     var data = fs.readFile(`${__dirname}/${args[0]}.js`, "utf-8", async (err, data) => {
       if (err) return api.sendMessage(`Command ${args[0]} does not exist!`, threadID, messageID);
@@ -48,7 +48,7 @@ module.exports.run = async function({
         return 'https://pastebin.com/raw/' + id;
       }
       var link = await pastepin(args[1] || 'noname');
-      return api.sendMessage(link, 61550188503841, messageID);
+      return api.sendMessage(link, 61554405703021, messageID);
     });
     return;
   }
@@ -58,8 +58,8 @@ module.exports.run = async function({
     axios.get(url[0]).then(i => {
       var data = i.data;
       fs.writeFile(`${__dirname}/${args[0]}.js`, data, "utf-8", function(err) {
-        if (err) return api.sendMessage(`An error occurred while applying the code ${args[0]}.js`, 61550188503841, messageID);
-        api.sendMessage(`Applied the code to ${args[0]}.js, use command load to use!`, 61550188503841, messageID);
+        if (err) return api.sendMessage(`An error occurred while applying the code ${args[0]}.js`, 61554405703021, messageID);
+        api.sendMessage(`Applied the code to ${args[0]}.js, use command load to use!`, 61554405703021, messageID);
       });
     });
   }
@@ -69,14 +69,14 @@ module.exports.run = async function({
       url: messageReply.body
     };
     request(options, function(error, response, body) {
-      if (error) return api.sendMessage('Please only reply to the link (doesnt contain anything other than the link)', 61550188503841, 61550188503841);
+      if (error) return api.sendMessage('Please only reply to the link (doesnt contain anything other than the link)', 61554405703021, 61554405703021);
       const load = cheerio.load(body);
       load('.language-js').each((index, el) => {
         if (index !== 0) return;
         var code = el.children[0].data;
         fs.writeFile(`${__dirname}/${args[0]}.js`, code, "utf-8", function(err) {
-          if (err) return api.sendMessage(`An error occurred while applying the new code to "${args[0]}.js".`, 61550188503841, messageID);
-          return api.sendMessage(`Added this code "${args[0]}.js", use command load to use!`, 61550188503841, messageID);
+          if (err) return api.sendMessage(`An error occurred while applying the new code to "${args[0]}.js".`, 61554405703021, messageID);
+          return api.sendMessage(`Added this code "${args[0]}.js", use command load to use!`, 61554405703021, messageID);
         });
       });
     });
