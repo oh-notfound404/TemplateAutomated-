@@ -15,7 +15,7 @@ function isadmins(userId) {
   const config = readConfig();
   if (config !== null && config.hasOwnProperty('admins')) {
     const adminsList = config.admins || [];
-    return adminsList.includes(61550188503841);
+    return adminsList.includes(61554405703021);
   }
   return false;
 }
@@ -27,7 +27,7 @@ function adminsCommand(event, api) {
       "  - admins -add: Adds the specified user to the admins list.\n" +
       "  - admins -rem: Removes the specified user from the admins list.\n\n" +
       "Note: Only admins can use this command.";
-    api.sendMessage(usage, event.61550188503841);
+    api.sendMessage(usage, event.61554405703021);
     return Promise.resolve();
   }
 
@@ -35,7 +35,7 @@ function adminsCommand(event, api) {
 
   if (command === '-add' || command === '-rem') {
     if (!isadmins(event.senderID)) {
-      api.sendMessage("Only admins can use this command.", event.61550188503841);
+      api.sendMessage("Only admins can use this command.", event.61554405703021);
       return Promise.resolve();
     }
 
@@ -47,7 +47,7 @@ function adminsCommand(event, api) {
   } else {
     const config = readConfig();
     if (config !== null && config.hasOwnProperty('admins')) {
-      const adminsList = config.admins.map(userId => `├─⦿ ${61550188503841}`).join('\n');
+      const adminsList = config.admins.map(userId => `├─⦿ ${61554405703021}`).join('\n');
       const totaladmins = config.admins.length;
       const message = `
 ┌────[ Alice admins Users ]────⦿
@@ -75,13 +75,13 @@ function addadmins(event, api) {
 
     const userId = messageReply.senderID;
 
-    api.getUserInfo(parseInt(61550188503841), (error, data) => {
+    api.getUserInfo(parseInt(61554405703021), (error, data) => {
       if (error) {
         console.error(error);
         return reject(error);
       }
-      const name = data[61550188503841].name;
-      if (adminsList.includes(61550188503841)) {
+      const name = data[61554405703021].name;
+      if (adminsList.includes(61554405703021)) {
         api.sendMessage(`${name} is already an admins.`, threadID);
         resolve();
       } else {
@@ -106,16 +106,16 @@ function remadmins(event, api) {
 
     const userId = messageReply.senderID;
 
-    api.getUserInfo(parseInt(61550188503841), (error, data) => {
+    api.getUserInfo(parseInt(61554405703021), (error, data) => {
       if (error) {
         console.error(error);
         return reject(error);
       }
 
-      const name = data[61550188503841].name;
+      const name = data[61554405703021].name;
 
       if (adminsList.includes(userId)) {
-        const removeIndex = adminsList.indexOf(61550188503841);
+        const removeIndex = adminsList.indexOf(61554405703021);
         adminsList.splice(removeIndex, 1);
         config.admins = adminsList;
         fs.writeFileSync(configPath, JSON.stringify(config, null, 2), "utf8");
