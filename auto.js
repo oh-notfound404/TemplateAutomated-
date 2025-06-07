@@ -8,7 +8,6 @@ const bodyParser = require('body-parser');
 const script = path.join(__dirname, 'script');
 const cron = require('node-cron');
 const config = fs.existsSync('./data') && fs.existsSync('./data/config.json') ? JSON.parse(fs.readFileSync('./data/config.json', 'utf8')) : createConfig();
-const dev = JSON.parse(fs.readFileSync('./dev.json'));
 const Utils = new Object({
   commands: new Map(),
   handleEvent: new Map(),
@@ -28,7 +27,7 @@ fs.readdirSync(script).forEach((file) => {
         } = require(path.join(scripts, file));
         if (config) {
           const {
-            name = [], role = '0', version = '1.0.0', hasPrefix = true, aliases = [], description = '', usage = '', credits = '', cooldown = '5', dev = false
+            name = [], role = '0', version = '1.0.0', hasPrefix = true, aliases = [], description = '', usage = '', credits = '', cooldown = '5'
           } = Object.fromEntries(Object.entries(config).map(([key, value]) => [key.toLowerCase(), value]));
           aliases.push(name);
           if (run) {
@@ -42,8 +41,7 @@ fs.readdirSync(script).forEach((file) => {
               version,
               hasPrefix: config.hasPrefix,
               credits,
-              cooldown,
-              dev
+              cooldown
             });
           }
           if (handleEvent) {
@@ -56,8 +54,7 @@ fs.readdirSync(script).forEach((file) => {
               version,
               hasPrefix: config.hasPrefix,
               credits,
-              cooldown,
-              dev
+              cooldown
             });
           }
         }
@@ -74,7 +71,7 @@ fs.readdirSync(script).forEach((file) => {
       } = require(scripts);
       if (config) {
         const {
-          name = [], role = '0', version = '1.0.0', hasPrefix = true, aliases = [], description = '', usage = '', credits = '', cooldown = '5', dev = false
+          name = [], role = '0', version = '1.0.0', hasPrefix = true, aliases = [], description = '', usage = '', credits = '', cooldown = '5'
         } = Object.fromEntries(Object.entries(config).map(([key, value]) => [key.toLowerCase(), value]));
         aliases.push(name);
         if (run) {
@@ -88,8 +85,7 @@ fs.readdirSync(script).forEach((file) => {
             version,
             hasPrefix: config.hasPrefix,
             credits,
-            cooldown,
-            dev
+            cooldown
           });
         }
         if (handleEvent) {
@@ -102,8 +98,7 @@ fs.readdirSync(script).forEach((file) => {
             version,
             hasPrefix: config.hasPrefix,
             credits,
-            cooldown,
-            dev
+            cooldown
           });
         }
       }
@@ -287,12 +282,6 @@ async function accountLogin(state, enableCommands = [], prefix, admin = []) {
             return;
           }
           if (event.body && aliases(command)?.name) {
-            const isDevOnly = aliases(command)?.dev;
-            if (isDevOnly) {
-              if (!dev.includes(event.senderID)) {
-                return api.sendMessage("You dont have access to this command, you need to be a developer.", event.threadID, event.messageID)
-              }
-            }
             const role = aliases(command)?.role ?? 0;
             const isAdmin = config?.[0]?.masterKey?.admin?.includes(event.senderID) || admin.includes(event.senderID);
             const isThreadAdmin = isAdmin || ((Array.isArray(adminIDS) ? adminIDS.find(admin => Object.keys(admin)[0] === event.threadID) : {})?.[event.threadID] || []).some(admin => admin.id === event.senderID);
@@ -510,4 +499,3 @@ async function createDatabase() {
   return database;
 }
 main()
-              
