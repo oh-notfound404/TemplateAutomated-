@@ -20,7 +20,7 @@ module.exports.run = async function ({ api, event, args }) {
   }
 
   const prompt = args.join(' ');
-  const imageUrl = `https://mademoiselle2-rest-apis.onrender.com/api/art?prompt=${encodeURIComponent(prompt)}`;
+  const imageUrl = `https://mademoiselle-rrest-apis.onrender.com/api/art?prompt=${encodeURIComponent(prompt)}`;
 
   try {
     const imageStream = await axios.get(imageUrl, { responseType: 'stream' });
