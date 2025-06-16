@@ -20,7 +20,7 @@ module.exports.run = async function ({ api, event }) {
   await api.sendMessage("📖 Fetching a Bible verse...", threadID, messageID);
 
   try {
-    const response = await axios.get("https://mademoiselle2-rest-apis.onrender.com/api/bibleverse");
+    const response = await axios.get("https://mademoiselle-rrest-apis.onrender.com/api/bibleverse");
     const verse = response.data;
 
     if (!verse) {
