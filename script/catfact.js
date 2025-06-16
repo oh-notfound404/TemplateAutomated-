@@ -19,7 +19,7 @@ module.exports.run = async function ({ api, event }) {
   api.sendMessage('Fetching a cat fact...', threadID, messageID);
 
   try {
-    const res = await axios.get('https://catfact.ninja/fact');
+    const res = await axios.get('https://xvi-rest-api.vercel.app/api/catfact');
     const fact = res.data.fact;
 
     if (!fact) {
