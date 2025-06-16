@@ -10,7 +10,7 @@ module.exports.config = {
   aliases: [],
   description: "Create a Facebook post with a message and optional attachments.",
   usage: "post <message> [with attachment or reply image]",
-  credits: "Converted by you | Original by developer",
+  credits: "YGG",
   cooldown: 5,
 };
 
